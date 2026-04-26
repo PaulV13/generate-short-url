@@ -1,8 +1,8 @@
 package db
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -74,4 +74,13 @@ func HealthCheck(db *gorm.DB) error {
 	}
 
 	return sqlDB.Ping()
+}
+
+func Close(db *gorm.DB) error {
+	sqlDB, err := db.DB()
+	if err != nil {
+		return err
+	}
+
+	return sqlDB.Close()
 }

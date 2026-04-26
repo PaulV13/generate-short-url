@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"errors"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -40,11 +41,26 @@ func ErrorHandler() gin.HandlerFunc {
 		err := c.Errors.Last().Err
 		var appErr *AppError
 		if errors.As(err, &appErr) {
+			log.Printf(
+				"request failed method=%s path=%s status=%d code=%s message=%s",
+				c.Request.Method,
+				c.FullPath(),
+				appErr.Status,
+				appErr.Code,
+				appErr.Message,
+			)
 			c.JSON(appErr.Status, gin.H{
 				"success": false,
 				"error":   gin.H{"code": appErr.Code, "message": appErr.Message},
 			})
 		} else {
+			log.Printf(
+				"request failed method=%s path=%s status=%d error=%v",
+				c.Request.Method,
+				c.FullPath(),
+				http.StatusInternalServerError,
+				err,
+			)
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"success": false,
 				"error":   gin.H{"code": "INTERNAL", "message": "an unexpected error occurred"},

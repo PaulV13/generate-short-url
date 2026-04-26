@@ -187,4 +187,26 @@ Para proteger `main`, en GitHub configura Branch Protection y marca como requeri
 - `test`
 - `build`
 - `docker`
+
+## Smoke tests E2E (staging)
+
+Script completo:
+
+```bash
+./scripts/smoke_e2e.sh https://tu-servicio.onrender.com
+```
+
+O usando variable de entorno:
+
+```bash
+BASE_URL=https://tu-servicio.onrender.com ./scripts/smoke_e2e.sh
+```
+
+El script valida:
+
+- creación de short URL
+- consulta por código
+- redirección
+- deactivate/active
+- expiración
 -
