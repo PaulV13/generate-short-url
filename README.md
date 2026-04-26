@@ -183,6 +183,7 @@ Checks incluidos:
 
 Para proteger `main`, en GitHub configura Branch Protection y marca como requeridos:
 
+
 - `test`
 - `build`
 - `docker`
