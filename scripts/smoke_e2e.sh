@@ -46,9 +46,9 @@ GET_BY_CODE_BODY=$(curl -sS "$BASE_URL/api/v1/urls/$CODE")
 printf '%s' "$GET_BY_CODE_BODY" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('shortCode')=='$CODE', d"
 
 echo "[4/8] redirect active"
-REDIRECT_HEADERS=$(curl -sSI "$BASE_URL/$CODE")
+REDIRECT_HEADERS=$(curl -sS -D - -o /dev/null "$BASE_URL/$CODE")
 printf '%s' "$REDIRECT_HEADERS" | grep -q "302"
-printf '%s' "$REDIRECT_HEADERS" | grep -q "Location: $ORIGINAL_URL"
+printf '%s' "$REDIRECT_HEADERS" | grep -qi "^location: $ORIGINAL_URL"
 
 echo "[5/8] deactivate"
 DEACTIVATE_BODY=$(curl -sS -X PATCH "$BASE_URL/api/v1/urls/$CODE/deactivate")
