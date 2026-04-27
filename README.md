@@ -222,4 +222,3 @@ El script valida:
 - redirección
 - deactivate/active
 - expiración
-- 
