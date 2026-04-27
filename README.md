@@ -189,7 +189,7 @@ Para proteger `main`, en GitHub configura Branch Protection y marca como requeri
 
 ## Deploy automatico a Render
 
-Workflow: `.github/workflows/deploy-render.yml`
+Workflow: `.github/workflows/ci.yml` (job `deploy-render`)
 
 Configuracion requerida en GitHub Secrets:
 
@@ -197,9 +197,9 @@ Configuracion requerida en GitHub Secrets:
 
 Comportamiento:
 
-- se dispara solo cuando el workflow `CI` termina exitoso,
+- corre al final del pipeline `CI`, despues de `test`, `build` y `docker`,
 - solo para `push` sobre `main`,
-- hace `POST` al deploy hook de Render para desplegar el ultimo commit.
+- hace `POST` al deploy hook de Render para desplegar el mismo commit validado por CI.
 
 ## Smoke tests E2E (staging)
 
