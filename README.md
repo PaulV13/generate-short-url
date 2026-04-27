@@ -183,10 +183,23 @@ Checks incluidos:
 
 Para proteger `main`, en GitHub configura Branch Protection y marca como requeridos:
 
--
 - `test`
 - `build`
 - `docker`
+
+## Deploy automatico a Render
+
+Workflow: `.github/workflows/deploy-render.yml`
+
+Configuracion requerida en GitHub Secrets:
+
+- `RENDER_DEPLOY_HOOK_URL`: deploy hook privado del servicio en Render.
+
+Comportamiento:
+
+- se dispara solo cuando el workflow `CI` termina exitoso,
+- solo para `push` sobre `main`,
+- hace `POST` al deploy hook de Render para desplegar el ultimo commit.
 
 ## Smoke tests E2E (staging)
 
@@ -209,4 +222,3 @@ El script valida:
 - redirección
 - deactivate/active
 - expiración
--
